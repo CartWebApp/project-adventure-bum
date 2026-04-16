@@ -1,17 +1,47 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Coral+Pixels&display=swap');
+
 body:not(starter) {
     background-color: black;
-}
-
-header {
     display: flex;
     flex-direction: column;
 }
 
+header {
+    display: flex;
+    flex-direction: row;
+}
+
+.coral-pixels-regular {
+    font-family: "Coral Pixels", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  
+.pixelify-sans{
+    font-family: "Pixelify Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+
 .theimage {
-    background-image: url(images/image\ 80.png);
-    height: 3000vh;
+    height: 100vh;
     width: 400vh;
     background-repeat: no-repeat;
+}
+
+label {
+color: white;
+font-family: "Pixelify Sans", sans-serif;
+}
+
+
+p {
+    color:aquamarine;
+    font-family: "Coral Pixels", serif;
 }
 
 .starter {
