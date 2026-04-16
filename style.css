@@ -1,6 +1,6 @@
 :root {
     --monitor-color: #FDF5E4;
-    --screen-color: #0BEBE7
+    --screen-color: #0BEBE7;
 }
 
 body {
@@ -13,24 +13,119 @@ body {
     background-color: var(--monitor-color);
 }
 
+.monitor {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    .monitorInteractables {
+        height: 5em;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        .monitorDiskDrive {
+            width: 50em;
+            height: 3.5em;
+            background-color: black;
+        }
+
+        .monitorPower {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1em;
+
+            .monitorPowerOnBtn {
+                width: 7.5em;
+                height: 4em;
+                background-color: #d9d9d9;
+                border: none;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+    
+            .monitorPowerLight {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 4em;
+                height: 3.25em;
+                background-color: black;
+
+                &.on {
+                    border: 1px solid lightgreen;
+                    background-color: rgb(2, 192, 2);
+                    box-shadow: lightgreen 0 0 1em;
+                }
+
+                .monitorPowerInner {
+                    width: 2.5em;
+                    height: 1.5em;
+                    opacity: 0.5;
+                    
+                    &.on {
+                        background-color: rgb(101, 212, 101);
+                        box-shadow: lightgreen 0 0 2em;
+                    }
+                }
+            }
+        }
+    }
+}
+
 .desktop {
+    display: flex;
     overflow: hidden;
-    background-color: var(--screen-color);
-    width: 95vw;
-    height: 90vh;
+    background-color: black;
+    width: 90vw;
+    height: 85vh;
     border: 0.5em solid rgba(0, 0, 0, 0.25);
     
     &::after {
         content: " ";
         display: block;
         position: absolute;
-        width: 95vw;
-        height: 90vh;
+        width: 90vw;
+        height: 85vh;
         background: rgba(18, 16, 16, 0.1);
         opacity: 0;
         z-index: 2;
         pointer-events: none;
         animation: flicker 2s infinite;
+    }
+
+    &:hover {
+        cursor: url('./assets/images/cursors/desktop-cursor.png') 0 0, auto;
+    }
+
+    .icons {
+        padding: 1em;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 1em;
+    }
+}
+
+.icon {
+    width: 5em;
+    height: 5em;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    background-color: white;
+    animation: textShadow 1s ease-in-out 2s infinite backwards;
+
+    &.inactive {
+        opacity: 0;
+    }
+
+    &:hover {
+        cursor: url('./assets/images/cursors/desktop-cursor-pointer.png') 0 0, auto;
     }
 }
 

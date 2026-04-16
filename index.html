@@ -1,16 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>B.U.M.</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
+
 <body>
     <main class="monitor">
-        <section id="bezel">
-            <section class="desktop"></section>
+        <section class="desktop">
+            <section class="icons">
+                <div class="icon inactive" id="computerIcon"></div>
+                <div class="icon inactive" id="umailIcon"></div>
+                <div class="icon inactive" id="workIcon"></div>
+                <div class="icon inactive" id="recycleBin"></div>
+            </section>
+        </section>
+        <section class="monitorInteractables">
+            <section class="monitorDiskDrive"></section>
+            <section class="monitorPower">
+                <button class="monitorPowerOnBtn"></button>
+                <section class="monitorPowerLight">
+                    <div class="monitorPowerInner"></div>
+                </section>
+            </section>
         </section>
     </main>
 </body>
+
 </html>
