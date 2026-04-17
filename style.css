@@ -1,8 +1,17 @@
 :root {
     --monitor-color: #FDF5E4;
     --screen-color: #0BEBE7;
+    --grey: #D9D9D9;
+    --dark-grey: #797979;
+    --darker-grey: #626262;
+    --light-gray: #F0F0F0;
+    --font-title: 1.5rem;
 }
 
+/* Body, he was just born. */
+
+/*   Henlo! I was just born!
+      /                     */
 body {
     width: 100vw;
     height: 100vh;
@@ -13,6 +22,21 @@ body {
     background-color: var(--monitor-color);
 }
 
+/* Common Elements */
+button {
+    border: 3px inset var(--light-gray);
+    background-color: var(--grey);
+
+
+    &:hover {
+        background-color: var(--grey);
+    }
+}
+
+/* Monitor. He's like a elitist bird with the amount of nests he has. */
+
+/*  Tweet Tweet Cha-Ching Cha-Ching, broke bird.
+      /                                         */
 .monitor {
     display: flex;
     flex-direction: column;
@@ -21,7 +45,8 @@ body {
     .monitorInteractables {
         height: 5em;
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
+        padding: 0 2em 0 2em;
         align-items: center;
 
         .monitorDiskDrive {
@@ -37,8 +62,8 @@ body {
             gap: 1em;
 
             .monitorPowerOnBtn {
-                width: 7.5em;
-                height: 4em;
+                width: 10.5em;
+                height: 5em;
                 background-color: #d9d9d9;
                 border: none;
 
@@ -46,28 +71,30 @@ body {
                     cursor: pointer;
                 }
             }
-    
+
             .monitorPowerLight {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                width: 4em;
-                height: 3.25em;
+                width: 5em;
+                height: 4.25em;
                 background-color: black;
 
-                &.on {
-                    border: 1px solid lightgreen;
-                    background-color: rgb(2, 192, 2);
-                    box-shadow: lightgreen 0 0 1em;
+                .monitorPowerInner {
+                    width: 3.5em;
+                    height: 2.5em;
+                    opacity: 0.5;
+                    background-color: rgb(119, 119, 119);
+                    box-shadow: none;
                 }
 
-                .monitorPowerInner {
-                    width: 2.5em;
-                    height: 1.5em;
-                    opacity: 0.5;
-                    
-                    &.on {
-                        background-color: rgb(101, 212, 101);
+                &.on {
+                    background-color: rgb(2, 192, 2);
+                    box-shadow: lightgreen 0 0 1em;
+
+                    .monitorPowerInner {
+                        opacity: 0.5;
+                        background-color: rgb(118, 228, 118);
                         box-shadow: lightgreen 0 0 2em;
                     }
                 }
@@ -79,11 +106,11 @@ body {
 .desktop {
     display: flex;
     overflow: hidden;
-    background-color: black;
+    background-color: #0BEBE7;
     width: 90vw;
     height: 85vh;
     border: 0.5em solid rgba(0, 0, 0, 0.25);
-    
+
     &::after {
         content: " ";
         display: block;
@@ -101,7 +128,7 @@ body {
         cursor: url('./assets/images/cursors/desktop-cursor.png') 0 0, auto;
     }
 
-    .icons {
+    #icons {
         padding: 1em;
         display: flex;
         flex-direction: column;
@@ -118,7 +145,6 @@ body {
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
     background-color: white;
-    animation: textShadow 1s ease-in-out 2s infinite backwards;
 
     &.inactive {
         opacity: 0;
@@ -126,6 +152,82 @@ body {
 
     &:hover {
         cursor: url('./assets/images/cursors/desktop-cursor-pointer.png') 0 0, auto;
+    }
+}
+
+.dialogueBox {
+    background-color: var(--grey);
+    min-width: 30em;
+    max-width: fit-content;
+    height: fit-content;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1em;
+    border: 3px inset var(--dark-grey);
+
+    &>*:not(.dialogueBoxHead) {
+        padding-left: 1em;
+    }
+
+    .dialogueBoxHead {
+        width: calc(100% - 1em);
+        height: 2em;
+        background-color: var(--light-gray);
+        padding-left: 1em;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 3px inset var(--dark-grey);
+
+
+        .title {
+            font-size: var(--font-title);
+            margin: 0;
+        }
+
+        .dialogueBoxClose {
+            width: fit-content;
+            padding: 0 1em 0 1em;
+            height: 100%;
+            border-left: 3px inset var(--dark-grey);
+
+            &:hover {
+                cursor: url('./assets/images/cursors/desktop-cursor-pointer.png') 0 0, auto;
+            }
+        }
+    }
+
+    .dialogueBoxSection {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    .dialogueBoxDivider {
+        height: 0;
+        width: 10em;
+        margin: 1em 0 1em 0;
+        display: flex;
+        flex-direction: column;
+
+        &::after {
+            content: "";
+            width: 100%;
+            border: 1px solid var(--dark-grey);
+        }
+
+        &::before {
+            content: "";
+            width: 100%;
+            border: 1px solid var(--light-gray);
+        }
     }
 }
 
@@ -212,91 +314,5 @@ body {
 
     100% {
         opacity: 0.2;
-    }
-}
-
-@keyframes textShadow {
-    0% {
-        text-shadow: 0.4 0 1px rgba(0, 30, 255, 0.5), -0.4 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    5% {
-        text-shadow: 2.7 0 1px rgba(0, 30, 255, 0.5), -2.7 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    10% {
-        text-shadow: 0.02 0 1px rgba(0, 30, 255, 0.5), -0.02 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    15% {
-        text-shadow: 0.4 0 1px rgba(0, 30, 255, 0.5), -0.4 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    20% {
-        text-shadow: 3.4 0 1px rgba(0, 30, 255, 0.5), -3.4 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    25% {
-        text-shadow: 1.6 0 1px rgba(0, 30, 255, 0.5), -1.6 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    30% {
-        text-shadow: 0.7 0 1px rgba(0, 30, 255, 0.5), -0.7 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    35% {
-        text-shadow: 3.8 0 1px rgba(0, 30, 255, 0.5), -3.8 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    40% {
-        text-shadow: 3.9 0 1px rgba(0, 30, 255, 0.5), -3.9 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    45% {
-        text-shadow: 2.2 0 1px rgba(0, 30, 255, 0.5), -2.2 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    50% {
-        text-shadow: 0.08 0 1px rgba(0, 30, 255, 0.5), -0.08 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    55% {
-        text-shadow: 2.3 0 1px rgba(0, 30, 255, 0.5), -2.3 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    60% {
-        text-shadow: 2.2 0 1px rgba(0, 30, 255, 0.5), -2.2 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    65% {
-        text-shadow: 2.8 0 1px rgba(0, 30, 255, 0.5), -2.8 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    70% {
-        text-shadow: 0.5 0 1px rgba(0, 30, 255, 0.5), -0.5 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    75% {
-        text-shadow: 1.9 0 1px rgba(0, 30, 255, 0.5), -1.9 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    80% {
-        text-shadow: 0.1 0 1px rgba(0, 30, 255, 0.5), -0.1 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    85% {
-        text-shadow: 0.1 0 1px rgba(0, 30, 255, 0.5), -0.1 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    90% {
-        text-shadow: 3.4 0 1px rgba(0, 30, 255, 0.5), -3.4 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    95% {
-        text-shadow: 2.2 0 1px rgba(0, 30, 255, 0.5), -2.2 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-    }
-
-    100% {
-        text-shadow: 2.6 0 1px rgba(0, 30, 255, 0.5), -2.6 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
     }
 }

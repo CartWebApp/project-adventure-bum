@@ -12,19 +12,37 @@
 <body>
     <main class="monitor">
         <section class="desktop">
-            <section class="icons">
-                <div class="icon inactive" id="computerIcon"></div>
-                <div class="icon inactive" id="umailIcon"></div>
-                <div class="icon inactive" id="workIcon"></div>
-                <div class="icon inactive" id="recycleBin"></div>
+            <section id="icons">
+                <div class="icon inactive" id="computerIcon">computer</div>
+                <div class="icon inactive" id="recycleBinIcon">recycleBin</div>
+                <div class="icon inactive" id="filesIcon">files</div>
+                <div class="icon inactive" id="umailIcon">umail</div>
+                <div class="icon inactive" id="workIcon">work</div>
             </section>
+
+            <section class="dialogueBox">
+                <section class="dialogueBoxHead">
+                    <h2 class="title">Title</h2>
+                    <button class="dialogueBoxClose">X</button>
+                </section>
+                <section class="dialogueBoxSection">
+                    <p class="dialogueBoxText">Hello World!</p>
+                    <button class="button">Test Button</button>
+                </section>
+                <div class="dialogueBoxDivider"></div>
+                <textarea class="textArea" name="testTextArea" id="testTextArea"
+                    placeholder="Test Text Area"></textarea>
+                <input class="textInput" type="text" placeholder="Test Text Input">
+                <input class="checkbox" type="checkbox" name="testCheckbox" id="testCheckbox">
+            </section>
+
         </section>
         <section class="monitorInteractables">
             <section class="monitorDiskDrive"></section>
             <section class="monitorPower">
                 <button class="monitorPowerOnBtn"></button>
-                <section class="monitorPowerLight">
-                    <div class="monitorPowerInner"></div>
+                <section class="monitorPowerLight on">
+                    <div class="monitorPowerInner on"></div>
                 </section>
             </section>
         </section>
