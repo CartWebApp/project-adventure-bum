@@ -80,4 +80,27 @@ p {
 #menu {
     background-image: url(images/SCPtitle.png);
     background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: flex-start;
 }
+
+#options {
+    display: flex;
+    flex-direction: column;
+    appearance: none;
+}
+
+.audio {
+    appearance: none;
+    display: none;
+}
+
+button {
+    background-color: black;
+    color: white;
+    border: white;
+    height: 100px;
+    width: 100px;
+}
+

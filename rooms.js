@@ -59,16 +59,22 @@ const imageslevel37 = [
     'images/poolhall,png',
     'images/pools 1.png',
     'images/stairs.png',
-    'images.'
+    'images/winding.png',
 ];
 
 const imageslevel232 = [
 ];
 
 const imageslevel94 = [
+    'images/house clear view.png',
+    'insidehouse(1).png',
+    'images/stop.png',
+    'images/nooutlet.png'
 ];
 
 const imageslimbo= [
+    'images/youcheated.png',
+    'images/limbostair.jpeg'
 ];
 
 
@@ -119,7 +125,17 @@ function chooseRandoPage(pages) {
 
 const storybeats = [storyboard];
 
+
 document.addEventListener('DOMContentLoaded', () => {  
     const log = document.querySelector('.logging');
 
 });
+
+randomizer.addEventListener('click', (event) => {
+    event.preventDefault();
+    const next = chooseRandoPage(randoPage);
+if (next) {
+    window.location.href=next;
+}
+});
+
