@@ -4,8 +4,12 @@
     --grey: #D9D9D9;
     --dark-grey: #797979;
     --darker-grey: #626262;
-    --light-gray: #F0F0F0;
+    --light-grey: #F0F0F0;
     --font-title: 1.5rem;
+}
+
+* {
+    user-select: none;
 }
 
 /* Body, he was just born. */
@@ -24,7 +28,7 @@ body {
 
 /* Common Elements */
 button {
-    border: 3px inset var(--light-gray);
+    border: 3px inset var(--light-grey);
     background-color: var(--grey);
 
 
@@ -110,6 +114,7 @@ button {
     width: 90vw;
     height: 85vh;
     border: 0.5em solid rgba(0, 0, 0, 0.25);
+    overflow: hidden;
 
     &::after {
         content: " ";
@@ -155,78 +160,127 @@ button {
     }
 }
 
-.dialogueBox {
-    background-color: var(--grey);
-    min-width: 30em;
-    max-width: fit-content;
-    height: fit-content;
+.window {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 25%;
+    left: 25%;
+    width: 25%;
+    height: 25%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 1em;
-    border: 3px inset var(--dark-grey);
+    overflow: hidden;
+    background-color: var(--light-grey);
+    border: 2px solid var(--darker-grey);
 
-    &>*:not(.dialogueBoxHead) {
-        padding-left: 1em;
+    &.hidden {
+        display: none;
+    }
+}
+
+.windowBar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: var(--light);
+    background-color: var(--grey);
+    position: relative;
+    border-bottom: 2px solid var(--darker-grey);
+    flex-shrink: 0;
+    cursor: url('./assets/cursors/Pan.cur') 0 0, auto;
+
+    &:active {
+        cursor: url('./assets/cursors/Grabbing.cur') 0 0, auto;
     }
 
-    .dialogueBoxHead {
-        width: calc(100% - 1em);
-        height: 2em;
-        background-color: var(--light-gray);
-        padding-left: 1em;
+    .windowButton {
         display: flex;
-        flex-direction: row;
         align-items: center;
-        justify-content: space-between;
-        border-bottom: 3px inset var(--dark-grey);
+        justify-content: center;
+        border: none;
+        height: 1.75em;
+        width: 2.25em;
 
-
-        .title {
-            font-size: var(--font-title);
-            margin: 0;
+        &.btnClose {
+            background-color: #ff7e7e;
+            border-right: 2px solid var(--dark-grey);
         }
 
-        .dialogueBoxClose {
-            width: fit-content;
-            padding: 0 1em 0 1em;
-            height: 100%;
-            border-left: 3px inset var(--dark-grey);
+        &:active {
+            background-color: #ff7e7e;
+        }
+    }
 
-            &:hover {
-                cursor: url('./assets/images/cursors/desktop-cursor-pointer.png') 0 0, auto;
+    .windowTitle {
+        padding-left: 1em;
+    }
+}
+
+.windowBody {
+    flex: 1;
+    border-top: none;
+    overflow: hidden;
+}
+
+.umail .windowBody {
+    display: flex;
+
+    .contactsBar {
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+        border-right: 2px solid var(--dark-grey);
+
+        .contactsList {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+
+            .contact {
+                padding: 0 1em 0 1em;
+                border-bottom: 1px solid;
             }
         }
     }
 
-    .dialogueBoxSection {
+    .umailChat {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
-    }
+        justify-content: space-between;
+        width: 70%;
 
-    .dialogueBoxDivider {
-        height: 0;
-        width: 10em;
-        margin: 1em 0 1em 0;
-        display: flex;
-        flex-direction: column;
-
-        &::after {
-            content: "";
-            width: 100%;
-            border: 1px solid var(--dark-grey);
+        .chatTitle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 2px solid var(--dark-grey);
         }
 
-        &::before {
-            content: "";
-            width: 100%;
-            border: 1px solid var(--light-gray);
+        .umailChatLogs {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+        .choiceBoxes {
+            display: flex;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+
+            .choiceBox {
+                width: 33%;
+                height: 2em;
+                padding: 0.25em;
+                border-top: 2px solid var(--dark-grey);
+                border-right: 2px solid var(--dark-grey);
+
+                &:nth-child(2) {
+                    width: 34%;
+                }
+
+                &:last-child {
+                    border-right: none;
+                }
+            }
         }
     }
 }

@@ -20,20 +20,30 @@
                 <div class="icon inactive" id="workIcon">work</div>
             </section>
 
-            <section class="dialogueBox">
-                <section class="dialogueBoxHead">
-                    <h2 class="title">Title</h2>
-                    <button class="dialogueBoxClose">X</button>
+            <section class="window umail hidden">
+                <span class="windowBar" id="umailBar">
+                    <button class="windowButton btnClose" id="umailClose">X</button>
+                    <span class="windowTitle" id="umailTitle">Umail</span>
+                </span>
+                <section class="windowBody">
+                    <aside class="contactsBar">
+                        <ul class="contactsList">
+                            <li class="contact" id="managerContact">Bobby</li>
+                            <li class="contact" id="hackerContact">#%%^*&</li>
+                            <li class="contact" id="rogelioContact">Rogelio</li>
+                            <li class="contact" id="printerContact">Printer</li>
+                        </ul>
+                    </aside>
+                    <section class="umailChat">
+                        <span class="chatTitle">Bobby</span>
+                        <article class="umailChatLogs"></article>
+                        <ul class="choiceBoxes">
+                            <li class="choiceBox" id="mangerChoice">1</li>
+                            <li class="choiceBox" id="hackerChoice">2</li>
+                            <li class="choiceBox" id="neutralChoice">3</li>
+                        </ul>
+                    </section>
                 </section>
-                <section class="dialogueBoxSection">
-                    <p class="dialogueBoxText">Hello World!</p>
-                    <button class="button">Test Button</button>
-                </section>
-                <div class="dialogueBoxDivider"></div>
-                <textarea class="textArea" name="testTextArea" id="testTextArea"
-                    placeholder="Test Text Area"></textarea>
-                <input class="textInput" type="text" placeholder="Test Text Input">
-                <input class="checkbox" type="checkbox" name="testCheckbox" id="testCheckbox">
             </section>
 
         </section>
@@ -50,3 +60,13 @@
 </body>
 
 </html>
+
+<!-- <section class="window NAME hidden">
+    <span class="windowBar" id="NAMEBar">
+        <button class="windowButton btnClose" id="NAME">X</button>
+        <span class="windowTitle" id="Title"></span>
+    </span>
+    <section class="windowBody">
+        
+    </section>
+</section> -->
