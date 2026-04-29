@@ -11,7 +11,10 @@
 
 <body>
     <main class="monitor">
+
         <section class="desktop">
+            <div class="checkbox revBordered"></div>
+
             <section id="icons">
                 <div class="icon inactive" id="computerIcon">computer</div>
                 <div class="icon inactive" id="recycleBinIcon">recycleBin</div>
@@ -20,7 +23,7 @@
                 <div class="icon inactive" id="workIcon">work</div>
             </section>
 
-            <section class="window umail hidden">
+            <section class="window umail bordered hidden">
                 <span class="windowBar" id="umailBar">
                     <button class="windowButton btnClose" id="umailClose">X</button>
                     <span class="windowTitle" id="umailTitle">Umail</span>
@@ -48,9 +51,9 @@
 
         </section>
         <section class="monitorInteractables">
-            <section class="monitorDiskDrive"></section>
+            <section class="monitorDiskDrive bordered"></section>
             <section class="monitorPower">
-                <button class="monitorPowerOnBtn"></button>
+                <button class="monitorPowerOnBtn bordered"></button>
                 <section class="monitorPowerLight on">
                     <div class="monitorPowerInner on"></div>
                 </section>

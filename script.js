@@ -8,6 +8,9 @@ const desktop = document.querySelector('.desktop');
 const icons = document.querySelector('#icons');
 const iconList = icons.children;
 
+// -- CheckBoxes --
+const checkBoxes = document.querySelectorAll(".checkbox");
+
 // -- Windows --
 const windowList = document.querySelectorAll('.window');
 const umail = document.querySelector('.umail');
@@ -23,6 +26,23 @@ makeIcons();
 monitorPowerOnBtn.addEventListener('click', async () => {
     monitorPowerLight.classList.contains('on') ? monitorPowerLight.classList.remove('on') : monitorPowerLight.classList.add('on');
 });
+
+monitorPowerOnBtn.addEventListener('mousedown', (e) => {
+    e.target.classList.add("revBordered");
+    e.target.classList.remove("bordered");
+})
+
+monitorPowerOnBtn.addEventListener('mouseup', (e) => {
+    e.target.classList.add("bordered");
+    e.target.classList.remove("revBordered");
+})
+
+for (const checkbox of checkBoxes) {
+    checkbox.addEventListener('click', (e) => {
+        e.target.classList.toggle('checked');
+    })
+}
+
 
 async function displayDesktop() {
     for (const icon of iconList) {
@@ -71,3 +91,4 @@ function makeWindow(window) {
         bar.style.cursor = 'grab';
     });
 }
+
