@@ -13,8 +13,6 @@
     <main class="monitor">
 
         <section class="desktop">
-            <div class="checkbox revBordered"></div>
-
             <section id="icons">
                 <div class="icon inactive" id="computerIcon">
                     <img src="./assets/icons/computer.svg" alt="Computer">
@@ -22,9 +20,9 @@
                 <div class="icon inactive" id="recycleBinIcon">
                     <img src="./assets/icons/trashcan.svg" alt="trashcan">
                 </div>
-                <div class="icon inactive" id="filesIcon">
+                <!-- <div class="icon inactive" id="filesIcon">
                     <img src="" alt="files">
-                </div>
+                </div> -->
                 <div class="icon inactive" id="umailIcon">
                     <img src="./assets/icons/umail.svg" alt="Umail">
                 </div>
@@ -33,7 +31,7 @@
                 </div>
             </section>
 
-            <section class="window umail bordered ">
+            <section class="window umail bordered hidden">
                 <span class="windowBar" id="umailBar">
                     <button class="windowButton btnClose" id="umailClose">X</button>
                     <span class="windowTitle" id="umailTitle">Umail</span>
@@ -56,6 +54,31 @@
                             <li class="choiceBox" id="neutralChoice">3</li>
                         </ul>
                     </section>
+                </section>
+            </section>
+
+            <section class="window checkboxGame bordered">
+                <span class="windowBar" id="checkboxGameBar">
+                    <button class="windowButton btnClose" id="checkboxGame">X</button>
+                    <span class="windowTitle" id="Title">Work</span>
+                </span>
+                <section class="windowBody">
+                    <span class="checkboxGameInfo">Click the Checkboxes!!!</span>
+                    <span class="checkboxGameInfo hidden" id="checkboxGameWinInfo">You Clicked the Checkboxes!!!</span>
+                    <ul class="checkboxes">
+                        <li class="checkbox revBordered"></li>
+                        <li class="checkbox revBordered"></li>
+                        <li class="checkbox revBordered"></li>
+
+                        <li class="checkbox revBordered"></li>
+                        <li class="checkbox revBordered"></li>
+                        <li class="checkbox revBordered"></li>
+
+                        <li class="checkbox revBordered"></li>
+                        <li class="checkbox revBordered"></li>
+                        <li class="checkbox revBordered"></li>
+                    </ul>
+                    <span id="checkboxGameTimer"></span>
                 </section>
             </section>
 

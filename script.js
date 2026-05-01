@@ -20,6 +20,18 @@ const  monitor = document.querySelector('.monitor');
 const monitorPowerOnBtn = document.querySelector('.monitorPowerOnBtn');
 const monitorPowerLight = document.querySelector('.monitorPowerLight');
 
+// [----- MiniGame Stuff -----]
+const miniGameCheckBoxContainer = document.querySelector('.checkboxGame .checkboxes');
+const miniGameCheckBoxes = document.querySelectorAll('.checkboxGame .checkbox');
+
+let timer = 30;
+
+
+makeWindow('umail');
+makeWindow('checkboxGame');
+setInterval(checkBoxMiniGame, 500);
+
+
 displayDesktop();
 makeIcons();
 
@@ -62,7 +74,7 @@ function makeIcons() {
 function makeWindow(window) {
     const win = document.querySelector(`.${window}`);
     const bar = document.querySelector(`#${window}Bar`);
-    const close = document.querySelector(`#${window}Bar > .closeBtn`);
+    const close = document.querySelector(`#${window}Bar > .btnClose`);
     let isDragging = false;
     let offsetX = 0;
     let offsetY = 0;
@@ -92,3 +104,24 @@ function makeWindow(window) {
     });
 }
 
+function checkBoxMiniGame() {
+    const boxes = miniGameCheckBoxes;
+    const checkedBoxes = [];
+    const timerContainer = document.querySelector('#checkboxGameTimer');
+    timerContainer.textContent = `${Math.floor(timer / 2)}`;
+    timer--;
+    for (const box of boxes) {
+        if(box.classList.contains('checked')) checkedBoxes.push(box);
+    }
+    if(checkedBoxes.length >= boxes.length) {
+        const info = document.querySelector('.checkboxGameInfo');
+        const winInfo = document.querySelector('#checkboxGameWinInfo');
+
+        winInfo.classList.remove('hidden');
+        info.classList.add('hidden');
+        
+        return;
+    }
+    const randomIndex = Math.floor(Math.random() * checkedBoxes.length);
+    checkBoxes[randomIndex].classList.remove('checked');
+}
