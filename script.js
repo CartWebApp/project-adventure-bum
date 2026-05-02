@@ -16,21 +16,67 @@ const windowList = document.querySelectorAll('.window');
 const umail = document.querySelector('.umail');
 
 // [-----  Monitor & Peripherals  -----]
-const  monitor = document.querySelector('.monitor');
+const monitor = document.querySelector('.monitor');
 const monitorPowerOnBtn = document.querySelector('.monitorPowerOnBtn');
 const monitorPowerLight = document.querySelector('.monitorPowerLight');
 
 // [----- MiniGame Stuff -----]
+
+// -- Checkbox Minigame --
 const miniGameCheckBoxContainer = document.querySelector('.checkboxGame .checkboxes');
 const miniGameCheckBoxes = document.querySelectorAll('.checkboxGame .checkbox');
 
 let timer = 30;
 
+// -- Loading Bar Minigame --
+const loadingGameContainer = document.querySelector('.loadingGame');
+const loadingBar = document.querySelector(".loadingBar");
+let rotating = false;
+
+// im bored of trying this rn.  If you wanna look at it thats cool.  Might return later
+loadingBar.addEventListener('mousedown', (e) => {
+    rotating = true;
+    const line = document.createElement('div');
+    let l = line.style;
+    l.position = 'absolute';
+    l.width = '1px';
+    l.height = '10px';
+    l.background = 'red';
+    l.left = `50%`;
+    l.top = `calc(50% - 5px`;
+    loadingBar.append(line);
+
+    let origin = line.getBoundingClientRect();
+    document.addEventListener('mousemove', (f) => {
+        if (rotating) {
+            // a*a = b*b + c*c
+            x = f.x - origin.left
+            y = f.y - origin.top;
+            let pothag = Math.sqrt(x*x + y*y)
+            l.width = `${pothag}px`;
+            let degrees = Math.asin(y / 25) * 180;
+
+            console.log(y, degrees);
+
+            l.transform = `rotate(${degrees}deg)`;
+        }
+    })
+
+})
+
+loadingBar.addEventListener('mouseleave', (e) => {
+    rotating = false;
+})
+
+loadingBar.addEventListener('mouseup', (e) => {
+    rotating = false;
+})
 
 makeWindow('umail');
 makeWindow('checkboxGame');
 setInterval(checkBoxMiniGame, 500);
 
+makeWindow('loadingGame');
 
 displayDesktop();
 makeIcons();
@@ -80,7 +126,7 @@ function makeWindow(window) {
     let offsetY = 0;
 
     close.addEventListener('click', () => {
-        win.classList.add(hidden);
+        win.classList.add('hidden');
     });
 
     bar.addEventListener('mousedown', (e) => {
@@ -111,15 +157,15 @@ function checkBoxMiniGame() {
     timerContainer.textContent = `${Math.floor(timer / 2)}`;
     timer--;
     for (const box of boxes) {
-        if(box.classList.contains('checked')) checkedBoxes.push(box);
+        if (box.classList.contains('checked')) checkedBoxes.push(box);
     }
-    if(checkedBoxes.length >= boxes.length) {
+    if (checkedBoxes.length >= boxes.length) {
         const info = document.querySelector('.checkboxGameInfo');
         const winInfo = document.querySelector('#checkboxGameWinInfo');
 
         winInfo.classList.remove('hidden');
         info.classList.add('hidden');
-        
+
         return;
     }
     const randomIndex = Math.floor(Math.random() * checkedBoxes.length);
