@@ -26,51 +26,64 @@ const monitorPowerLight = document.querySelector('.monitorPowerLight');
 const miniGameCheckBoxContainer = document.querySelector('.checkboxGame .checkboxes');
 const miniGameCheckBoxes = document.querySelectorAll('.checkboxGame .checkbox');
 
-let timer = 30;
+let checkBoxTimer = 30;
 
 // -- Loading Bar Minigame --
 const loadingGameContainer = document.querySelector('.loadingGame');
 const loadingBar = document.querySelector(".loadingBar");
+const loadingBarContainer = document.querySelector('.loadingBarContainer');
+const loadingBarBody = document.querySelector('.loadingGame > .windowBody');
 let rotating = false;
 
 // im bored of trying this rn.  If you wanna look at it thats cool.  Might return later
-loadingBar.addEventListener('mousedown', (e) => {
-    rotating = true;
-    const line = document.createElement('div');
-    let l = line.style;
-    l.position = 'absolute';
-    l.width = '1px';
-    l.height = '10px';
-    l.background = 'red';
-    l.left = `50%`;
-    l.top = `calc(50% - 5px`;
-    loadingBar.append(line);
 
-    let origin = line.getBoundingClientRect();
+// Looked at it, I changed a little bit but left everything in comments.
+
+// Changed the event listener to the window body for better rotation
+loadingBarBody.addEventListener('mousedown', (e) => {
+    rotating = true;
+
+    // Below this line is the rotation visualizer stuff; since it's not being used I also commented out the width calculation
+    // ---------------------------------------------
+    // const line = document.createElement('div');
+    // let l = line.style;
+    // l.position = 'absolute';
+    // l.width = '1px';
+    // l.height = '4px';
+    // l.background = 'blue';
+    // l.left = `50%`;
+    // l.top = `calc(50% - 2px)`;
+    // loadingBar.append(line);
+
+    let origin = loadingBar.getBoundingClientRect();
     document.addEventListener('mousemove', (f) => {
         if (rotating) {
             // a*a = b*b + c*c
             x = f.x - origin.left
             y = f.y - origin.top;
-            let pothag = Math.sqrt(x*x + y*y)
-            l.width = `${pothag}px`;
-            let degrees = Math.asin(y / 25) * 180;
+            let pothag = Math.sqrt(x*x + y*y);
+            // l.width = `calc(${pothag}px + 5px)`;
+            // sub 10 to account for cursor position
+            let degrees = Math.asin(y / 400) * 180 - 10;
 
-            console.log(y, degrees);
+            // console.log(y, degrees);
 
-            l.transform = `rotate(${degrees}deg)`;
+            // rotate the bar
+            // l.transform = `rotate(${degrees}deg)`;
+            loadingBar.style.transform = `rotate(${degrees}deg)`;
         }
-    })
+    });
 
-})
+});
 
-loadingBar.addEventListener('mouseleave', (e) => {
+// Changed mouseup target to the html body so you can still rotate when outside loading bar window
+body.addEventListener('mouseup', (e) => {
     rotating = false;
-})
+});
 
-loadingBar.addEventListener('mouseup', (e) => {
+loadingBarBody.addEventListener('mouseup', (e) => {
     rotating = false;
-})
+});
 
 makeWindow('umail');
 makeWindow('checkboxGame');
@@ -154,8 +167,8 @@ function checkBoxMiniGame() {
     const boxes = miniGameCheckBoxes;
     const checkedBoxes = [];
     const timerContainer = document.querySelector('#checkboxGameTimer');
-    timerContainer.textContent = `${Math.floor(timer / 2)}`;
-    timer--;
+    timerContainer.textContent = `${Math.floor(checkBoxTimer / 2)}`;
+    checkBoxTimer--;
     for (const box of boxes) {
         if (box.classList.contains('checked')) checkedBoxes.push(box);
     }
