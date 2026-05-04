@@ -31,8 +31,15 @@ let checkBoxTimer = 30;
 // -- Loading Bar Minigame --
 const loadingGameContainer = document.querySelector('.loadingGame');
 const loadingBar = document.querySelector(".loadingBar");
+
+let loadingBarRotation = 0;
+
 const loadingBarContainer = document.querySelector('.loadingBarContainer');
 const loadingBarBody = document.querySelector('.loadingGame > .windowBody');
+const loadingProgress = document.querySelector('.loadingProgress');
+
+loadingProgress.style.width = '55%';
+
 let rotating = false;
 
 // im bored of trying this rn.  If you wanna look at it thats cool.  Might return later
@@ -55,22 +62,26 @@ loadingBarBody.addEventListener('mousedown', (e) => {
     // l.top = `calc(50% - 2px)`;
     // loadingBar.append(line);
 
+    
     let origin = loadingBar.getBoundingClientRect();
     document.addEventListener('mousemove', (f) => {
         if (rotating) {
             // a*a = b*b + c*c
-            x = f.x - origin.left
-            y = f.y - origin.top;
+            const x = f.x - origin.left
+            const y = f.y - origin.top;
             let pothag = Math.sqrt(x*x + y*y);
             // l.width = `calc(${pothag}px + 5px)`;
             // sub 10 to account for cursor position
-            let degrees = Math.asin(y / 400) * 180 - 10;
+            let degreesY = Math.asin(y / 400) * 180 - 10;
+            let degreesX = Math.acos(x / 400) * 180 - 10;
 
-            // console.log(y, degrees);
+            // console.log(`Sin Angle: ${degreesY}\n Cos Angle: ${degreesX}`);
 
             // rotate the bar
             // l.transform = `rotate(${degrees}deg)`;
-            loadingBar.style.transform = `rotate(${degrees}deg)`;
+
+            loadingBarBody.getBoundingClientRect().width/2 > x ? loadingBar.style.transform = `rotate(${degreesY * -1}deg)` : loadingBar.style.transform = `rotate(${degreesY}deg)`;
+            loadingBarRotation = degreesY;
         }
     });
 
@@ -85,9 +96,21 @@ loadingBarBody.addEventListener('mouseup', (e) => {
     rotating = false;
 });
 
+function loadingBarMiniGame() {
+    let progress = Number(loadingProgress.style.width.match(/\d+/g));
+    const rotationMult = ((loadingBarRotation - 1)/4)/100;
+
+    const newProgress = (progress + (progress * rotationMult)).toFixed(0);
+
+    console.log(`Progress: ${progress}\nRotation Multiplier:${rotationMult}\nNew Progress Value: ${newProgress}`);
+
+    progress = `${newProgress}%`;
+}
+
 makeWindow('umail');
 makeWindow('checkboxGame');
 setInterval(checkBoxMiniGame, 500);
+setInterval(loadingBarMiniGame, 1000);
 
 makeWindow('loadingGame');
 
