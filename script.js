@@ -30,58 +30,45 @@ let checkBoxTimer = 30;
 
 // -- Loading Bar Minigame --
 const loadingGameContainer = document.querySelector('.loadingGame');
-const loadingBar = document.querySelector(".loadingBar");
 
-let loadingBarRotation = 0;
+const john = {
+    log(stuff) {console.log(`Hello, my name is John and ${stuff}`)},
+    goat() {console.log("bahhh")},
+}
+
+const loadingBar = {
+    element: document.querySelector(".loadingBar"),
+    origin: document.querySelector(".loadingBar").getBoundingClientRect(),
+    progress: document.querySelector(".loadingBar > .loadingProgress").getBoundingClientRect().width,
+    rotation: 0,
+    rotating: false,
+    style: document.querySelector(".loadingBar").style,
+
+}
+
+john.log(`${loadingBar.progress} is the length of my insides`);
 
 const loadingBarContainer = document.querySelector('.loadingBarContainer');
 const loadingBarBody = document.querySelector('.loadingGame > .windowBody');
-const loadingProgress = document.querySelector('.loadingProgress');
 
-loadingProgress.style.width = '55%';
 
-let rotating = false;
-
-// im bored of trying this rn.  If you wanna look at it thats cool.  Might return later
-
-// Looked at it, I changed a little bit but left everything in comments.
-
-// Changed the event listener to the window body for better rotation
 loadingBarBody.addEventListener('mousedown', (e) => {
-    rotating = true;
-
-    // Below this line is the rotation visualizer stuff; since it's not being used I also commented out the width calculation
-    // ---------------------------------------------
-    // const line = document.createElement('div');
-    // let l = line.style;
-    // l.position = 'absolute';
-    // l.width = '1px';
-    // l.height = '4px';
-    // l.background = 'blue';
-    // l.left = `50%`;
-    // l.top = `calc(50% - 2px)`;
-    // loadingBar.append(line);
-
+    loadingBar.rotating = true;
     
-    let origin = loadingBar.getBoundingClientRect();
+    let origin = loadingBar.origin;
     document.addEventListener('mousemove', (f) => {
-        if (rotating) {
-            // a*a = b*b + c*c
+        if (loadingBar.rotating) {
+            // a*a = b*b + c*c pythagori you fricken genius
             const x = f.x - origin.left
             const y = f.y - origin.top;
-            let pothag = Math.sqrt(x*x + y*y);
-            // l.width = `calc(${pothag}px + 5px)`;
             // sub 10 to account for cursor position
             let degreesY = Math.asin(y / 400) * 180 - 10;
-            let degreesX = Math.acos(x / 400) * 180 - 10;
 
-            // console.log(`Sin Angle: ${degreesY}\n Cos Angle: ${degreesX}`);
 
             // rotate the bar
-            // l.transform = `rotate(${degrees}deg)`;
-
-            loadingBarBody.getBoundingClientRect().width/2 > x ? loadingBar.style.transform = `rotate(${degreesY * -1}deg)` : loadingBar.style.transform = `rotate(${degreesY}deg)`;
-            loadingBarRotation = degreesY;
+            loadingBar.origin.width/2 > x ? loadingBar.style.transform = `rotate(${degreesY * -1}deg)` : loadingBar.style.transform = `rotate(${degreesY}deg)`;
+            loadingBar.origin.width/2 > x ? loadingBar.rotation = degreesY * -1 : loadingBar.rotation = degreesY;
+            // loadingBar.rotation = degreesY;
         }
     });
 
@@ -89,22 +76,18 @@ loadingBarBody.addEventListener('mousedown', (e) => {
 
 // Changed mouseup target to the html body so you can still rotate when outside loading bar window
 body.addEventListener('mouseup', (e) => {
-    rotating = false;
+    loadingBar.rotating = false;
 });
 
 loadingBarBody.addEventListener('mouseup', (e) => {
-    rotating = false;
+    loadingBar.rotating = false;
 });
 
 function loadingBarMiniGame() {
-    let progress = Number(loadingProgress.style.width.match(/\d+/g));
-    const rotationMult = ((loadingBarRotation - 1)/4)/100;
+    const g = 9.8;
+    let currentWidth = 0;
 
-    const newProgress = (progress + (progress * rotationMult)).toFixed(0);
-
-    console.log(`Progress: ${progress}\nRotation Multiplier:${rotationMult}\nNew Progress Value: ${newProgress}`);
-
-    progress = `${newProgress}%`;
+    john.log(loadingBar.rotation);
 }
 
 makeWindow('umail');
@@ -115,8 +98,8 @@ setInterval(loadingBarMiniGame, 1000);
 makeWindow('loadingGame');
 
 displayDesktop();
-makeIcons();
 
+// Monitor button
 monitorPowerOnBtn.addEventListener('click', async () => {
     monitorPowerLight.classList.contains('on') ? monitorPowerLight.classList.remove('on') : monitorPowerLight.classList.add('on');
 });
@@ -131,13 +114,15 @@ monitorPowerOnBtn.addEventListener('mouseup', (e) => {
     e.target.classList.remove("revBordered");
 })
 
+
+// Checkbox listeners
 for (const checkbox of checkBoxes) {
     checkbox.addEventListener('click', (e) => {
         e.target.classList.toggle('checked');
     })
 }
 
-
+// (Desktop and window) creation and listernrs
 async function displayDesktop() {
     for (const icon of iconList) {
         await sleep(1000);
@@ -147,10 +132,6 @@ async function displayDesktop() {
 
 async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-function makeIcons() {
-    console.log();
 }
 
 function makeWindow(window) {
@@ -186,6 +167,8 @@ function makeWindow(window) {
     });
 }
 
+
+//Meeneegams
 function checkBoxMiniGame() {
     const boxes = miniGameCheckBoxes;
     const checkedBoxes = [];
@@ -207,3 +190,13 @@ function checkBoxMiniGame() {
     const randomIndex = Math.floor(Math.random() * checkedBoxes.length);
     checkBoxes[randomIndex].classList.remove('checked');
 }
+
+
+// //     let progress = Number(loadingProgress.style.width.match(/\d+/g));
+// const rotationMult = ((loadingBarRotation - 1)/4)/100;
+
+// const newProgress = (progress + (progress * rotationMult)).toFixed(0);
+
+// console.log(`Progress: ${progress}\nRotation Multiplier:${rotationMult}\nNew Progress Value: ${newProgress}`);
+
+// progress = `${newProgress}%`;
