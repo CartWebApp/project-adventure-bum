@@ -42,6 +42,44 @@ loadingProgress.style.width = '55%';
 
 let rotating = false;
 
+const method = {
+    name: 'method',
+    names: 'methods',
+
+    object(name, ...properties) {
+        const object ={};
+        for (const property of properties) {
+            name.property = 'test';
+        }
+        
+    },
+
+
+    print(string) {
+        if(!string) {
+            console.log(`Hello World!`);
+            return;
+        }
+        console.log(string);
+    },
+
+    holyPrint(string) {
+        if(!string) {
+            console.log('usage:\n   HelloWorld.holyPrint(string);');
+            return
+        }
+        const charList = [];
+        for (const char of string) {
+            const randomAscii = Math.floor(Math.random() * 128);
+            charList.push(String.fromCharCode(randomAscii));
+        }
+        console.log(`${charList.join('')}\n\n(You can't read it because you're not holly enough)`);
+    },
+}
+console.log(method.object('name', 'test'));
+// method.print('Hello World!');
+// method.holyPrint('Hello World!');
+
 // im bored of trying this rn.  If you wanna look at it thats cool.  Might return later
 
 // Looked at it, I changed a little bit but left everything in comments.
@@ -61,7 +99,7 @@ loadingBarBody.addEventListener('mousedown', (e) => {
     // l.left = `50%`;
     // l.top = `calc(50% - 2px)`;
     // loadingBar.append(line);
-
+    
     
     let origin = loadingBar.getBoundingClientRect();
     document.addEventListener('mousemove', (f) => {
@@ -74,17 +112,17 @@ loadingBarBody.addEventListener('mousedown', (e) => {
             // sub 10 to account for cursor position
             let degreesY = Math.asin(y / 400) * 180 - 10;
             let degreesX = Math.acos(x / 400) * 180 - 10;
-
+            
             // console.log(`Sin Angle: ${degreesY}\n Cos Angle: ${degreesX}`);
-
+            
             // rotate the bar
             // l.transform = `rotate(${degrees}deg)`;
-
+            
             loadingBarBody.getBoundingClientRect().width/2 > x ? loadingBar.style.transform = `rotate(${degreesY * -1}deg)` : loadingBar.style.transform = `rotate(${degreesY}deg)`;
             loadingBarRotation = degreesY;
         }
     });
-
+    
 });
 
 // Changed mouseup target to the html body so you can still rotate when outside loading bar window
@@ -99,23 +137,23 @@ loadingBarBody.addEventListener('mouseup', (e) => {
 function loadingBarMiniGame() {
     let progress = Number(loadingProgress.style.width.match(/\d+/g));
     const rotationMult = ((loadingBarRotation - 1)/4)/100;
-
+    
     const newProgress = (progress + (progress * rotationMult)).toFixed(0);
-
-    console.log(`Progress: ${progress}\nRotation Multiplier:${rotationMult}\nNew Progress Value: ${newProgress}`);
-
+    
+    // console.log(`Progress: ${progress}\nRotation Multiplier:${rotationMult}\nNew Progress Value: ${newProgress}`);
+    
     progress = `${newProgress}%`;
 }
 
 makeWindow('umail');
 makeWindow('checkboxGame');
+makeWindow('spamGame');
 setInterval(checkBoxMiniGame, 500);
 setInterval(loadingBarMiniGame, 1000);
 
 makeWindow('loadingGame');
 
 displayDesktop();
-makeIcons();
 
 monitorPowerOnBtn.addEventListener('click', async () => {
     monitorPowerLight.classList.contains('on') ? monitorPowerLight.classList.remove('on') : monitorPowerLight.classList.add('on');
@@ -149,10 +187,6 @@ async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function makeIcons() {
-    console.log();
-}
-
 function makeWindow(window) {
     const win = document.querySelector(`.${window}`);
     const bar = document.querySelector(`#${window}Bar`);
@@ -160,11 +194,11 @@ function makeWindow(window) {
     let isDragging = false;
     let offsetX = 0;
     let offsetY = 0;
-
+    
     close.addEventListener('click', () => {
         win.classList.add('hidden');
     });
-
+    
     bar.addEventListener('mousedown', (e) => {
         if (e.target.classList.contains('btnClose')) return;
         isDragging = true;
@@ -173,13 +207,13 @@ function makeWindow(window) {
         win.style.transition = 'none';
         bar.style.cursor = 'grabbing';
     });
-
+    
     document.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
         win.style.left = (e.clientX - offsetX) + 'px';
         win.style.top = (e.clientY - offsetY) + 'px';
     });
-
+    
     document.addEventListener('mouseup', () => {
         isDragging = false;
         bar.style.cursor = 'grab';
@@ -198,12 +232,43 @@ function checkBoxMiniGame() {
     if (checkedBoxes.length >= boxes.length) {
         const info = document.querySelector('.checkboxGameInfo');
         const winInfo = document.querySelector('#checkboxGameWinInfo');
-
+        
         winInfo.classList.remove('hidden');
         info.classList.add('hidden');
-
+        
         return;
     }
     const randomIndex = Math.floor(Math.random() * checkedBoxes.length);
     checkBoxes[randomIndex].classList.remove('checked');
 }
+
+// async function create_print() {
+//     function* chars() {
+//         for(let i = 97; i < 123; i++) 
+//           yield String.fromCharCode(i);
+//       }
+    
+//     async function* combinations(length, previous = "") {
+//        if(length <= 0) {
+//           yield previous;
+//           return;
+//        }
+    
+//        for (const char of chars())
+//           yield* await combinations(length - 1, previous + char);
+//     }
+//     for await (const word of combinations(11)) {
+//         if (globalThis[word] === undefined) {
+//             globalThis[word] = {
+//                 get print() {
+//                     console.trace(word);
+//                 }
+//             }
+//             console.log(word);
+//         }
+//     }
+// }
+
+// create_print().then(() => {
+//     helloworld.print;
+// });

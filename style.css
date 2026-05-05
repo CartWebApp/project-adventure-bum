@@ -438,6 +438,43 @@ body {
     }
 }
 
+.spamGame .windowBody {
+    display: flex;
+    flex-direction: column;
+
+    .sentEmail {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        height: 50%;
+
+        .emailHeader {
+            display: flex;
+            flex-direction: column;
+            
+
+
+            .emailSender {
+                font-size: 1.25rem;
+
+                em {
+                    font-style: normal;
+                    text-decoration: underline;
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+
+    .emailResponse {
+        display: flex;
+        flex-direction: column;
+        height: 50%;
+
+        .
+    }
+}
+
 @keyframes flicker {
     0% {
         opacity: 0.2;
