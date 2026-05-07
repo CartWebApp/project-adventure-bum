@@ -40,34 +40,52 @@ const loadingBar = {
     element: document.querySelector(".loadingBar"),
     origin: document.querySelector(".loadingBar").getBoundingClientRect(),
     progress: document.querySelector(".loadingBar > .loadingProgress").getBoundingClientRect().width,
+    progressEl: document.querySelector('.loadingBar > .loadingProgress'),
     rotation: 0,
     rotating: false,
     style: document.querySelector(".loadingBar").style,
 
 }
 
-john.log(`${loadingBar.progress} is the length of my insides`);
-
 const loadingBarContainer = document.querySelector('.loadingBarContainer');
 const loadingBarBody = document.querySelector('.loadingGame > .windowBody');
 
+const prints = {
+    started: false,
 
-let rotating = false;
-
-const method = {
-    name: 'method',
-    names: 'methods',
-
-    object(name, ...properties) {
-        const object ={};
-        for (const property of properties) {
-            name.property = 'test';
-        }
-        
+    status() {
+        if(!this.started) return console.log('Prints: DOWN');
+        return console.log('Prints: UP');
     },
 
+    async start() {
+        console.log('Starting Prints...');
+        await sleep(500);
+        console.log('...');
+        await sleep(500);
+        console.log('...');
+        await sleep(500);
+        console.log('...');
+        await sleep(1000);
+        console.log('Startup complete');
+        this.started = true;
+    },
+
+    async stop() {
+        console.log('Stoping Prints...');
+        await sleep(500);
+        console.log('...');
+        await sleep(500);
+        console.log('...');
+        await sleep(500);
+        console.log('...');
+        await sleep(1000);
+        console.log('Prints Stopped');
+        this.started = false;
+    },
 
     print(string) {
+        if(!this.started) return console.log('Not started');
         if(!string) {
             console.log(`Hello World!`);
             return;
@@ -76,8 +94,9 @@ const method = {
     },
 
     holyPrint(string) {
+        if(!this.started) return console.log('Not started');
         if(!string) {
-            console.log('usage:\n   HelloWorld.holyPrint(string);');
+            console.log('usage:\n   print.holyPrint(string);');
             return
         }
         const charList = [];
@@ -87,10 +106,23 @@ const method = {
         }
         console.log(`${charList.join('')}\n\n(You can't read it because you're not holly enough)`);
     },
+
+    evilPrint(string) {
+        if(!this.started) return console.log('Not started');
+        if(!string) {
+            console.log('usage:\n   print.evilPrint(string);');
+            return
+        }
+        const stringChar = string.split('');
+        const charList = [];
+        for (const char of stringChar) {
+            charList.unshift(char);
+        }
+        console.log(`${charList.join('')}`);
+    }
 }
-console.log(method.object('name', 'test'));
-// method.print('Hello World!');
-// method.holyPrint('Hello World!');
+
+// prints.start();
 
 // im bored of trying this rn.  If you wanna look at it thats cool.  Might return later
 
@@ -112,7 +144,7 @@ loadingBarBody.addEventListener('mousedown', (e) => {
     // l.top = `calc(50% - 2px)`;
     // loadingBar.append(line);
     
-loadingBarBody.addEventListener('mousedown', (e) => {
+    loadingBarBody.addEventListener('mousedown', (e) => {
     loadingBar.rotating = true;
     
     let origin = loadingBar.origin;
@@ -131,7 +163,7 @@ loadingBarBody.addEventListener('mousedown', (e) => {
             // l.transform = `rotate(${degrees}deg)`;
             
             loadingBarBody.getBoundingClientRect().width/2 > x ? loadingBar.style.transform = `rotate(${degreesY * -1}deg)` : loadingBar.style.transform = `rotate(${degreesY}deg)`;
-            loadingBarRotation = degreesY;
+            loadingBar.rotation = degreesY;
 
 
             // rotate the bar
@@ -139,7 +171,8 @@ loadingBarBody.addEventListener('mousedown', (e) => {
             loadingBar.origin.width/2 > x ? loadingBar.rotation = degreesY * -1 : loadingBar.rotation = degreesY;
             // loadingBar.rotation = degreesY;
         }
-    })
+        });
+    });
 });
 
 // Changed mouseup target to the html body so you can still rotate when outside loading bar window
@@ -152,8 +185,8 @@ loadingBarBody.addEventListener('mouseup', (e) => {
 });
 
 function loadingBarMiniGame() {
-    let progress = Number(loadingProgress.style.width.match(/\d+/g));
-    const rotationMult = ((loadingBarRotation - 1)/4)/100;
+    let progress = Number(loadingBar.progressEl.style.width.match(/\d+/g));
+    const rotationMult = ((loadingBar.rotation - 1)/4)/100;
     
     const newProgress = (progress + (progress * rotationMult)).toFixed(0);
     
@@ -163,7 +196,7 @@ function loadingBarMiniGame() {
     const g = 9.8;
     let currentWidth = 0;
 
-    john.log(loadingBar.rotation);
+    // john.log(loadingBar.rotation);
 }
 
 makeWindow('umail');
