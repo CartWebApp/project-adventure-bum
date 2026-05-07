@@ -427,14 +427,8 @@ body {
         .loadingProgress {
             background-color: rgb(0, 255, 0);
             height: 100%;
-            width: 55%;
-
-            .rightedge {
-                justify-self: flex-end;
-                height: 100%;
-                width: 7.5%;
-                background-color: rgb(2, 139, 0);
-            }
+            width: 0%;
+            transition: width linear 100ms;
         }
     }
 }

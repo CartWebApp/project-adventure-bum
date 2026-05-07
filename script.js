@@ -38,9 +38,11 @@ const john = {
 
 const loadingBar = {
     element: document.querySelector(".loadingBar"),
+    textEl: document.querySelector(".loadingText"),
     origin: document.querySelector(".loadingBar").getBoundingClientRect(),
     progress: document.querySelector(".loadingBar > .loadingProgress").getBoundingClientRect().width,
     progressEl: document.querySelector('.loadingBar > .loadingProgress'),
+    width: 0,
     rotation: 0,
     rotating: false,
     style: document.querySelector(".loadingBar").style,
@@ -51,55 +53,35 @@ const loadingBarContainer = document.querySelector('.loadingBarContainer');
 const loadingBarBody = document.querySelector('.loadingGame > .windowBody');
 
 
-// prints.start();
 
-// im bored of trying this rn.  If you wanna look at it thats cool.  Might return later
-
-// Looked at it, I changed a little bit but left everything in comments.
-
-// Changed the event listener to the window body for better rotation
 loadingBarBody.addEventListener('mousedown', (e) => {
     rotating = true;
     
-    // Below this line is the rotation visualizer stuff; since it's not being used I also commented out the width calculation
-    // ---------------------------------------------
-    // const line = document.createElement('div');
-    // let l = line.style;
-    // l.position = 'absolute';
-    // l.width = '1px';
-    // l.height = '4px';
-    // l.background = 'blue';
-    // l.left = `50%`;
-    // l.top = `calc(50% - 2px)`;
-    // loadingBar.append(line);
-    
     loadingBarBody.addEventListener('mousedown', (e) => {
-        loadingBar.rotating = true;
-        
-        let origin = loadingBar.origin;
-        document.addEventListener('mousemove', (f) => {
-            if (loadingBar.rotating) {
-                // a*a = b*b + c*c pythagori you fricken genius
-                const x = f.x - origin.left
-                const y = f.y - origin.top;
-                // sub 10 to account for cursor position
-                let degreesY = Math.asin(y / 400) * 180 - 10;
-                let degreesX = Math.acos(x / 400) * 180 - 10;
-                
-                // console.log(`Sin Angle: ${degreesY}\n Cos Angle: ${degreesX}`);
-                
-                // rotate the bar
-                // l.transform = `rotate(${degrees}deg)`;
-                
-                loadingBarBody.getBoundingClientRect().width/2 > x ? loadingBar.style.transform = `rotate(${degreesY * -1}deg)` : loadingBar.style.transform = `rotate(${degreesY}deg)`;
-                loadingBar.rotation = degreesY;
-                
-                
-                // rotate the bar
-                loadingBar.origin.width/2 > x ? loadingBar.style.transform = `rotate(${degreesY * -1}deg)` : loadingBar.style.transform = `rotate(${degreesY}deg)`;
-                loadingBar.origin.width/2 > x ? loadingBar.rotation = degreesY * -1 : loadingBar.rotation = degreesY;
-                // loadingBar.rotation = degreesY;
-            }
+    loadingBar.rotating = true;
+    
+    let origin = loadingBar.origin;
+    document.addEventListener('mousemove', (f) => {
+        if (loadingBar.rotating) {
+            // a*a = b*b + c*c pythagori you fricken genius
+            const x = f.x - origin.left
+            const y = f.y - origin.top;
+            // sub 10 to account for cursor position
+            let degreesY = Math.asin(y / 400) * 180 - 10;
+            
+            // console.log(`Sin Angle: ${degreesY}\n Cos Angle: ${degreesX}`);
+            
+
+            
+            loadingBarBody.getBoundingClientRect().width/2 > x ? loadingBar.style.transform = `rotate(${degreesY * -1}deg)` : loadingBar.style.transform = `rotate(${degreesY}deg)`;
+            loadingBar.rotation = degreesY;
+
+
+            // rotate the bar
+            loadingBar.origin.width/2 > x ? loadingBar.style.transform = `rotate(${degreesY * -1}deg)` : loadingBar.style.transform = `rotate(${degreesY}deg)`;
+            loadingBar.origin.width/2 > x ? loadingBar.rotation = degreesY * -1 : loadingBar.rotation = degreesY;
+            // loadingBar.rotation = degreesY;
+        }
         });
     });
 });
@@ -114,25 +96,34 @@ loadingBarBody.addEventListener('mouseup', (e) => {
 });
 
 function loadingBarMiniGame() {
-    let progress = Number(loadingBar.progressEl.style.width.match(/\d+/g));
-    const rotationMult = ((loadingBar.rotation - 1)/4)/100;
-    
-    const newProgress = (progress + (progress * rotationMult)).toFixed(0);
-    
-    // console.log(`Progress: ${progress}\nRotation Multiplier:${rotationMult}\nNew Progress Value: ${newProgress}`);
-    
-    progress = `${newProgress}%`;
-    const g = 9.8;
-    let currentWidth = 0;
-    
-    // john.log(loadingBar.rotation);
+    loadingBar.width += loadingBar.rotation;
+
+    // Ensures limits on the bar
+    if (loadingBar.width < 0) {
+        loadingBar.width = 0;
+    } else if (loadingBar.width > 100) {
+        loadingBar.width = 100;
+    }
+
+    // Styles Bar to the new width
+    loadingBar.progressEl.style.width = `${loadingBar.width}%`;
+    // Changes text to current percentage
+    loadingBar.textEl.textContent = `${Math.floor(loadingBar.width)}%`;
+
 }
+function mainLoop(){
+
+    loadingBarMiniGame();
+}
+
+setInterval(mainLoop, 100);
 
 makeWindow('umail');
 makeWindow('checkboxGame');
 makeWindow('spamGame');
 setInterval(checkBoxMiniGame, 500);
-setInterval(loadingBarMiniGame, 1000);
+// setInterval(loadingBarMiniGame, 1000);
+// loadingBarMiniGame();
 
 makeWindow('loadingGame');
 
