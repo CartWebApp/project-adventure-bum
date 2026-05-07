@@ -89,7 +89,7 @@
                 </section>
             </section>
 
-            <section class="window loadingGame bordered">
+            <section class="window loadingGame bordered hidden">
                 <span class="windowBar" id="loadingGameBar">
                     <button class="windowButton btnClose" id="loadingGame">X</button>
                     <span class="windowTitle" id="progressTitle">Loading...</span>
@@ -115,22 +115,30 @@
             </section>
         </section>
 
-        <section class="window spamGame bordered hidden">
+        <section class="window spamGame bordered">
             <span class="windowBar" id="spamGameBar">
                 <button class="windowButton btnClose" id="spamGame">X</button>
                 <span class="windowTitle" id="Title"></span>
             </span>
             <section class="windowBody">
-                <span class="sentEmail">
-                    <span class="emailHeader">
-                        <h2 class="emailSender">Rogelio McLaughlin <em>&lt;rogeliomclaughlin@imabum.com&gt;</em></h2>
-                        <span class="recipiant">To <em>you</em></span>
+                <span class="sendPage">
+                    <span class="sentEmail">
+                        <span class="emailHeader">
+                            <h2 class="emailSender">Rogelio McLaughlin <em>&lt;rogeliomclaughlin@imabum.com&gt;</em></h2>
+                            <span class="recipiant">To <em>*you ♥*</em></span>
+                        </span>
+                        <p class="emailText">blah blah blah blah, bleh blah blah<br>Bum.</p>
                     </span>
-                    <p class="emailText">blah blah blah blah, bleh blah blah</p>
+                    <span class="emailResponse">
+                        <textarea name="" spellcheck="none" class="emailTypingArea" rows="4"></textarea>
+                        <span class="characterCount">0 / 10</span>
+                        <button class="sendEmailBtn bordered">Send</button>
+                    </span>
                 </span>
-                <span class="emailResponse">
-                    <textarea name="" id="" class="emailTypingArea"></textarea>
-                    <button class="sendEmailBtn">Send</button>
+
+                <span class="sentPage hidden">
+                    <span>Email Sent!</span>
+                    <span class="sentPageEmail"></span>
                 </span>
             </section>
         </section>
