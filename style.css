@@ -76,7 +76,6 @@ body {
 }
 
 
-
 .held::after {
     background-color: var(--dark-grey);
 }
@@ -579,6 +578,65 @@ body {
 
     .sendPage.hidden {
         display: none;
+    }
+}
+
+.supplyGame>.windowBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & h2 {
+        font-size: 2rem;
+    }
+
+    & span {
+        font-size: 3rem;
+        border-bottom: black 1px solid;
+    };
+
+    & ul {
+        width: 75%;
+        padding-inline-start: 0px;
+        list-style-type: none;
+
+        & li {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+
+            & div {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                & span {
+                    font-size: 1.75rem;
+                    width: 50%;
+                    max-width: fit-content;
+                }
+
+                & p {
+                    color: red;
+                    font-size: 1.5rem;
+                    font-weight: bold;
+
+                    &::before {
+                        content: "- ";
+                    }
+                }
+            }
+
+            & input {
+                height: 3em;
+            }
+        }
+    }
+
+    & button {
+        width: 13.75em;
+        height: 3.75em;
+        font-size: 1rem;
     }
 }
 
