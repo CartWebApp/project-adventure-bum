@@ -223,23 +223,63 @@ function checkBoxMiniGame() {
 
 // Spam game !!!
 
+const emailWindow = document.querySelector('.spamGame');
 const emailTypingArea = document.querySelector('.emailTypingArea');
 const charCounter = document.querySelector('.characterCount');
 const emailSendBtn = document.querySelector('.sendEmailBtn');
 const sendPage = document.querySelector('.sendPage');
 const sentPage = document.querySelector('.sentPage');
-const sentEmail = document.querySelector('.sentPageEmail');
+const sentEmail = document.querySelector('.sentEmailText');
+const recievedEmailText = document.querySelector('.emailText');
+const emailTimer = document.querySelector('.emailTimer');
+const emailFailed = document.querySelector('.emailFailed');
+let emailComplete = false;
+
+const emailOptions = [
+    'But government feel world... That person take week! Like child give company!',
+    'After Ta\'rique Dunte Dixon go hand. Until week get group! Nor Ta\'rique Dunte Dixon use man... When man see Ta\'rique Dunte Dixon... Than world say place?',
+    'Like hand come week! While problem feel world?',
+    'Because day make group... As child work way... If eye look Jake Faridoni. Except week try point?',
+    'Because week seem thing... And work see world. Since government try fact. Where child ask part...',
+    'Or person say woman? Or world take way? Whether man want thing? While thing think part.',
+    'Or child tell world. Before part look world...',
+    'Whether hand leave week... Since hand make Jake Faridoni. If work give Ta\'rique Dunte Dixon. And eye want man...',
+    'Whether group want group. Unless problem see part? Once world leave point...',
+    'That place want child? If time take life. And problem know time!',
+]
 
 const random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min; 
 }
 
-emailMinigame(random(20, 50));
+emailMinigame(20, 50, 15);
 
-function emailMinigame(chars) {
+async function emailMinigame(minChar = 20, maxChar = 50, seconds) {
+    let chars = random(minChar, maxChar);
+    emailTimer.textContent = `${seconds}s`;
+
+    recievedEmailText.textContent = `${emailOptions[random(0, emailOptions.length - 1)]} Bum.`;
+    let charCount = 0;
+
+    setInterval(async () => {
+        seconds--;
+        emailTimer.textContent = `${seconds}s`;
+        if(seconds <= 10) {
+            emailTimer.style.color = 'red';
+        }
+        if(seconds === 0 && !emailComplete) {
+            sendPage.classList.add('hidden');
+            emailFailed.classList.remove('hidden');
+            await sleep(3000);
+            emailWindow.classList.add('hidden');
+        }
+    }, 1000);
+
+    emailWindow.classList.remove('hidden');
     charCounter.textContent = `0 / ${chars}`;
+
     emailTypingArea.addEventListener('input', () => {
-        const charCount = emailTypingArea.value.length;
+        charCount = emailTypingArea.value.length;
     
         if(charCount < chars) charCounter.style.color = 'red';
         else charCounter.style.color = 'green';
@@ -247,12 +287,40 @@ function emailMinigame(chars) {
         charCounter.textContent = `${charCount} / ${chars}`;
     });
 
+    const send = new Event('sendEmail');
+
+    emailTypingArea.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter') return;
+        e.preventDefault();
+        emailSendBtn.dispatchEvent(send); 
+    });
+
     emailSendBtn.addEventListener('click', () => {
+        emailSendBtn.dispatchEvent(send);
+    });
+
+    emailSendBtn.addEventListener('sendEmail', async () => {
+        if(charCount < chars) {
+            charCounter.classList.add('invalid');
+            await sleep(500);
+            charCounter.classList.remove('invalid');
+            return;
+        }
+        let points = random(0, 300) + random(0, 50) + random(0, 25) + random(0, 5);
+        points += Math.floor((points * Math.floor(seconds % random(1, 1000))) / 100);
+
         sendPage.classList.add('hidden');
         sentPage.classList.remove('hidden');
 
-        sentEmail.textContent = emailTypingArea.value;
-    });
+        document.querySelector('.sentPage .points').textContent += `+ ${points}pts`;
+        emailComplete = true;
+
+        await sleep(3000);
+        emailWindow.classList.add('hidden');
+    })
+
+
+
 }
 
 // async function create_print() {
@@ -295,74 +363,74 @@ function emailMinigame(chars) {
                                     
                                     // progress = `${newProgress}%`
                                     
-const prints = {
-                                        started: false,
+// const prints = {
+//                                         started: false,
                                     
-                                        status() {
-                                            if(!this.started) return console.log('Prints: DOWN');
-                                            return console.log('Prints: UP');
-                                        },
+//                                         status() {
+//                                             if(!this.started) return console.log('Prints: DOWN');
+//                                             return console.log('Prints: UP');
+//                                         },
                                     
-                                        async start() {
-                                            console.log('Starting Prints...');
-                                            await sleep(500);
-                                            console.log('...');
-                                            await sleep(500);
-                                            console.log('...');
-                                            await sleep(500);
-                                            console.log('...');
-                                            await sleep(1000);
-                                            console.log('Startup complete');
-                                            this.started = true;
-                                        },
+//                                         async start() {
+//                                             console.log('Starting Prints...');
+//                                             await sleep(500);
+//                                             console.log('...');
+//                                             await sleep(500);
+//                                             console.log('...');
+//                                             await sleep(500);
+//                                             console.log('...');
+//                                             await sleep(1000);
+//                                             console.log('Startup complete');
+//                                             this.started = true;
+//                                         },
                                     
-                                        async stop() {
-                                            console.log('Stoping Prints...');
-                                            await sleep(500);
-                                            console.log('...');
-                                            await sleep(500);
-                                            console.log('...');
-                                            await sleep(500);
-                                            console.log('...');
-                                            await sleep(1000);
-                                            console.log('Prints Stopped');
-                                            this.started = false;
-                                        },
+//                                         async stop() {
+//                                             console.log('Stoping Prints...');
+//                                             await sleep(500);
+//                                             console.log('...');
+//                                             await sleep(500);
+//                                             console.log('...');
+//                                             await sleep(500);
+//                                             console.log('...');
+//                                             await sleep(1000);
+//                                             console.log('Prints Stopped');
+//                                             this.started = false;
+//                                         },
                                     
-                                        print(string) {
-                                            if(!this.started) return console.log('Not started');
-                                            if(!string) {
-                                                console.log(`Hello World!`);
-                                                return;
-                                            }
-                                            console.log(string);
-                                        },
+//                                         print(string) {
+//                                             if(!this.started) return console.log('Not started');
+//                                             if(!string) {
+//                                                 console.log(`Hello World!`);
+//                                                 return;
+//                                             }
+//                                             console.log(string);
+//                                         },
                                     
-                                        holyPrint(string) {
-                                            if(!this.started) return console.log('Not started');
-                                            if(!string) {
-                                                console.log('usage:\n   print.holyPrint(string);');
-                                                return
-                                            }
-                                            const charList = [];
-                                            for (const char of string) {
-                                                const randomAscii = Math.floor(Math.random() * 128);
-                                                charList.push(String.fromCharCode(randomAscii));
-                                            }
-                                            console.log(`${charList.join('')}\n\n(You can't read it because you're not holly enough)`);
-                                        },
+//                                         holyPrint(string) {
+//                                             if(!this.started) return console.log('Not started');
+//                                             if(!string) {
+//                                                 console.log('usage:\n   print.holyPrint(string);');
+//                                                 return
+//                                             }
+//                                             const charList = [];
+//                                             for (const char of string) {
+//                                                 const randomAscii = Math.floor(Math.random() * 128);
+//                                                 charList.push(String.fromCharCode(randomAscii));
+//                                             }
+//                                             console.log(`${charList.join('')}\n\n(You can't read it because you're not holly enough)`);
+//                                         },
                                     
-                                        evilPrint(string) {
-                                            if(!this.started) return console.log('Not started');
-                                            if(!string) {
-                                                console.log('usage:\n   print.evilPrint(string);');
-                                                return
-                                            }
-                                            const stringChar = string.split('');
-                                            const charList = [];
-                                            for (const char of stringChar) {
-                                                charList.unshift(char);
-                                            }
-                                            console.log(`${charList.join('')}`);
-                                        }
-}
+//                                         evilPrint(string) {
+//                                             if(!this.started) return console.log('Not started');
+//                                             if(!string) {
+//                                                 console.log('usage:\n   print.evilPrint(string);');
+//                                                 return
+//                                             }
+//                                             const stringChar = string.split('');
+//                                             const charList = [];
+//                                             for (const char of stringChar) {
+//                                                 charList.unshift(char);
+//                                             }
+//                                             console.log(`${charList.join('')}`);
+//                                         }
+// }

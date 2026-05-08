@@ -245,8 +245,9 @@ body {
     position: absolute;
     top: 25%;
     left: 25%;
-    min-width: 25%;
-    max-width: fit-content;
+    width: 30%;
+    /* min-width: 25%;
+    max-width: fit-content; */
     min-height: 25%;
     max-height: fit-content;
     display: flex;
@@ -441,8 +442,19 @@ body {
     .sentEmail {
         display: flex;
         flex-direction: column;
-        gap: 1em;
         height: 50%;
+
+        .emailText {
+            margin-top: 1em;
+            padding: 0.25em;
+            align-self: center;
+            display: flex;
+            flex-wrap: wrap;
+            width: 90%;
+            height: fit-content;
+            text-wrap: pretty;
+            background-color: #FFF;
+        }
 
         .emailHeader {
             display: flex;
@@ -460,6 +472,17 @@ body {
                 }
             }
         }
+
+        &::after {
+            align-self: center;
+            content: '';
+            width: 90%;
+            height: 1px;
+            padding: 0 0.25em 0 0.25em;
+            background-color: var(--darker-grey);
+            border: 1px solid var(--darker-grey);
+            margin: 0 0 1em 0;
+        }
     }
 
     .emailResponse {
@@ -468,6 +491,7 @@ body {
         height: 50%;
         padding: 1em;
         align-items: center;
+        justify-content: center;
         gap: 1em;
 
         .emailTypingArea {
@@ -480,6 +504,26 @@ body {
 
         .characterCount {
             color: red;
+            font-size: 1.25rem;
+
+            &.invalid {
+
+                &::after {
+                    content: ' !!!!!';
+                    color: red;
+                }
+    
+                &::before {
+                    content: '!!!!! ';
+                    color: red;
+                }
+            }
+
+            
+        }
+
+        .emailTimer {
+            font-size: 1.25rem;
         }
 
         .sendEmailBtn {
@@ -518,14 +562,15 @@ body {
         }
     }
 
-    .sentPage {
+    .sentPage, .emailFailed {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        justify-content: center;
         font-size: 2rem;
         width: 100%;
         height: 100%;
+        margin-top: 1em;
 
         &.hidden {
             display: none;
